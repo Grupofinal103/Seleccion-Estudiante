@@ -24,6 +24,9 @@ class Sorteo():
 
 
     def agregar_estudiante(self,apellidoPaterno,apellidoMaterno,nombres,elegible):
+        if((apellidoPaterno=="") and (nombres == "")):
+            return False
+
         busqueda = session.query(Estudiante).filter((Estudiante.apellidoPaterno==apellidoPaterno) and (Estudiante.apellidoMaterno == apellidoMaterno) and  (Estudiante.nombres == nombres)).all()
         if len(busqueda) == 0:
             estudiante = Estudiante(apellidoPaterno = apellidoPaterno , apellidoMaterno = apellidoMaterno , nombres = nombres , elegible = elegible)
