@@ -10,6 +10,9 @@ class Sorteo():
         Base.metadata.create_all(engine)
 
     def agregar_asignatura(self,nombreAsignatura):
+        if(nombreAsignatura==""):
+            return False
+
         busqueda = session.query(Asignatura).filter(Asignatura.nombreAsignatura == nombreAsignatura).all()
         if len(busqueda) == 0:
             asignatura = Asignatura(nombreAsignatura = nombreAsignatura)
@@ -18,6 +21,7 @@ class Sorteo():
             return True
         else:
             return False
+
 
     def agregar_estudiante(self,apellidoPaterno,apellidoMaterno,nombres,elegible):
         busqueda = session.query(Estudiante).filter((Estudiante.apellidoPaterno==apellidoPaterno) and (Estudiante.apellidoMaterno == apellidoMaterno) and  (Estudiante.nombres == nombres)).all()
@@ -48,3 +52,4 @@ class Sorteo():
             return True
         else:
             return False
+

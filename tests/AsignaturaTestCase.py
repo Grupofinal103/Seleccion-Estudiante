@@ -107,6 +107,16 @@ class AsignaturaTestCase ( unittest.TestCase ) :
         resultado = self.sorteo.agregar_asignatura(nombreAsignatura = "Pruebas de software")
         self.assertNotEqual(resultado, True)
 
+    def test_verificar_almacenamiento_agregar_asignatura ( self ):
+        resultado = self.sorteo.agregar_asignatura(nombreAsignatura="Estructura de datos")
+        self.session=Session()
+        asignatura=self.session.query(Asignatura).filter(Asignatura.nombreAsignatura == "Estructura de datos").first()
+        self.assertEqual("Estructura de datos",asignatura.nombreAsignatura)
+
+    def test_agregar_Asignatura_vacio ( self ) :
+        resultado = self.sorteo.agregar_asignatura( "" )
+        self.assertFalse(resultado)
+
     def test_agregar_estudiante ( self ) :
         resultado = self.sorteo.agregar_estudiante(apellidoPaterno="Casanoba",apellidoMaterno="Miranda",nombres="Kevin",elegible=True)
         self.assertEqual ( resultado , True )
@@ -130,3 +140,4 @@ class AsignaturaTestCase ( unittest.TestCase ) :
     def test_agregar_actividad_repetido ( self ) :
         resultado = self.sorteo.agregar_actividad( denominacionActividad = "TDD" , fecha = datetime ( 2021 , 9 , 25 , 00 , 00 , 00 , 00000 ) )
         self.assertNotEqual(resultado, True)
+
